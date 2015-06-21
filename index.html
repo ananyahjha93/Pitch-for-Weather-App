@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Weather Anomaly Forecasting App</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Weather Anomaly Forecasting App">
+  <meta name="author" content="Ananya Harsh Jha">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/prettify/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="./assets/css/ribbons.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>Weather Anomaly Forecasting App</h1>
+    <h2></h2>
+    <p>Ananya Harsh Jha<br/></p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>What the app is about?</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>The application is designed to predict anomalies in temperature for any given day and location.</p>
+
+<p>The application forecasts the temperature deviation on a given day from the historical mean.</p>
+
+<p>The application uses HoltWinters method from &#39;forecast&#39; package in R for forecasting. </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Assumptions</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Enigma.io provides data from 1964 to 2013. Data after 2012 has been used for this app. This is done so that the model trains on a relevant dataset. </p>
+
+<p>The dataset reports the days for which the temperature shows a deviation from the historical average value.
+Thus the temperature for the remaining days are considered to be in the range of the historical average. For these days we set the deviation from the mean to 0. </p>
+
+<p>In the next slide we show a basic example to demonstrate the Time Series model building and forecasting.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Example showing Time Series Forecasting</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Fitting a time series model on generated data</p>
+
+<pre><code class="r">x &lt;- seq(1:100)
+timeSeries &lt;- ts(x, start = 1, end = 100, frequency = 5)
+fit &lt;- HoltWinters(timeSeries)
+forecast(fit, 3)
+</code></pre>
+
+<pre><code>##       Point Forecast    Lo 80    Hi 80    Lo 95    Hi 95
+## 100.2       97.80354 86.30515 109.3019 80.21827 115.3888
+## 100.4       98.87447 82.67983 115.0691 74.10690 123.6420
+## 100.6       99.45756 79.63201 119.2831 69.13699 129.7781
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Plot showing the forecast for the next 100 future values</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">plot(forecast(fit, 100))
+</code></pre>
+
+<p><img src="assets/fig/unnamed-chunk-2-1.png" alt="plot of chunk unnamed-chunk-2"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='What the app is about?'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Assumptions'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Example showing Time Series Forecasting'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Plot showing the forecast for the next 100 future values'>
+         4
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- Google Prettify -->
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/prettify/188.0.0/prettify.js"></script>
+  <script src='libraries/highlighters/prettify/js/lang-r.js'></script>
+  <script>
+    var pres = document.getElementsByTagName("pre");
+    for (var i=0; i < pres.length; ++i) {
+      pres[i].className = "prettyprint linenums";
+    }
+    prettyPrint();
+  </script>
+  <!-- End Google Prettify --> 
+  </html>

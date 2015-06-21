@@ -1,0 +1,51 @@
+---
+title       : Weather Anomaly Forecasting App
+subtitle    : 
+author      : Ananya Harsh Jha
+job         : 
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : prettify  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+widgets     : []            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+knit        : slidify::knit2slides
+---
+
+## What the app is about?
+
+The application is designed to predict anomalies in temperature for any given day and location.
+
+The application forecasts the temperature deviation on a given day from the historical mean.
+
+The application uses HoltWinters method from 'forecast' package in R for forecasting. 
+
+--- 
+
+## Assumptions
+
+Enigma.io provides data from 1964 to 2013. Data after 2012 has been used for this app. This is done so that the model trains on a relevant dataset. 
+
+The dataset reports the days for which the temperature shows a deviation from the historical average value.
+Thus the temperature for the remaining days are considered to be in the range of the historical average. For these days we set the deviation from the mean to 0. 
+
+In the next slide we show a basic example to demonstrate the Time Series model building and forecasting.
+
+---
+
+## Example showing Time Series Forecasting
+
+Fitting a time series model on generated data
+
+```{r}
+x <- seq(1:100)
+timeSeries <- ts(x, start = 1, end = 100, frequency = 5)
+fit <- HoltWinters(timeSeries)
+forecast(fit, 3)
+```
+
+---
+
+## Plot showing the forecast for the next 100 future values
+```{r}
+plot(forecast(fit, 100))
+```
